@@ -32,7 +32,7 @@
                 @csrf
                 <button type="submit" class="order-confirm__button--submit">購入を確定する</button>
             </form>
-            <a href="{{ route('items.detail', $item) }}" class="order-confirm__button--back">← 詳細に戻る</a>
+            <a href="{{ route('items.show', $item) }}" class="order-confirm__button--back">← 詳細に戻る</a>
         </div>
     </div>
 @endsection

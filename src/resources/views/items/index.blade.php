@@ -6,9 +6,12 @@
     <div class="item__content">
         <div class="item__heading">
             <h2 class="heading-ttl item__heading-ttl">商品一覧ページ</h2>
+            <a href="{{ route('mypage') }}" class="section__button-back">
+                    マイページへ
+                </a>
         </div>
 
-        
+
         {{-- <form class="search-form" action="{{ route('contacts.search') }}" method="get">
             <div class="search-form__content">
                 <div class="search-form__item">
@@ -68,7 +71,7 @@
                     </figcaption>
                 </figure>
                 <div class="item-card__link">
-                    <a href="{{ route('items.detail', $item) }}" class="item-card__link-button">商品詳細</a>
+                    <a href="{{ route('items.show', $item) }}" class="item-card__link-button">商品詳細</a>
                 </div>
             </div>
         @empty

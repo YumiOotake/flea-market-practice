@@ -25,6 +25,7 @@
                 <p class="item-detail__text">{{ $item->category->name }}</p>
             </div>
             <div class="item-detail__item">
+                <span class="item-detail__title">説明</span>
                 <p class="item-detail__text">{{ $item->description }}</p>
             </div>
 
@@ -45,7 +46,7 @@
         </div>
         <div class="item-detail__button">
             @auth
-                <a href="{{ route('items.store', $item) }}" class="item-detail__button--edit">
+                <a href="{{ route('orders.confirm', $item) }}" class="item-detail__button--edit">
                     購入する
                 </a>
             @else

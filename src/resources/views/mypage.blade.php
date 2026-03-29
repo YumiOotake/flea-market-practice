@@ -7,6 +7,9 @@
         <div class="item__heading">
             <h2 class="heading-ttl item__heading-ttl">マイページ</h2>
         </div>
+        <a href="{{ route('items.index') }}" class="section__button-back">
+            ← 一覧に戻る
+        </a>
         <aside class="sidebar">
             <section class="sidebar-profile">
                 <p class="sidebar-profile__name">{{ $user->name }}</p>
@@ -14,10 +17,20 @@
                 <p class="sidebar-profile__email">{{ $user->email }}</p>
             </section>
         </aside>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-error">
+                {{ session('error') }}
+            </div>
+        @endif
+        <div class="item__create">
+            <a href="{{ route('items.create') }}" class="item__create--link">出品する</a>
+        </div>
 
-        @auth
-            <a href="{{ route('items.create') }}">出品する</a>
-        @endauth
         {{-- <form class="search-form" action="{{ route('contacts.search') }}" method="get">
             <div class="search-form__content">
                 <div class="search-form__item">
@@ -82,18 +95,18 @@
                 </figure>
                 <div class="item-card__button">
                     @can('update', $item)
-                        <div class="item-card__button-edit">
-                            <a href="{{ route('items.edit', $item) }}" class="item-card__button--edit">編集</a>
-                        </div>
+                    <div class="item-card__button-edit">
+                        <a href="{{ route('items.edit', $item) }}" class="item-card__button--edit">編集</a>
+                    </div>
                     @endcan
                     @can('delete', $item)
-                        <form action="{{ route('items.destroy', $item) }}" method="POST" class="item-card__form">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="item-card__button--delete">
-                                削除
-                            </button>
-                        </form>
+                    <form action="{{ route('items.destroy', $item) }}" method="POST" class="item-card__form">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="item-card__button--delete">
+                            出品を取り消す
+                        </button>
+                    </form>
                     @endcan
                 </div>
             </div>
@@ -106,16 +119,17 @@
         <div class="order-list__header">
             <h3 class="order-list__title">購入履歴</h3>
         </div>
-        @forelse ($order as $order)
+        @forelse ($orders as $order)
             <div class="item-card">
                 <figure class="item-card__figure">
                     <div class="item-card__image">
-                        <img src="{{ asset('storage/' . $order->image) }}" alt="" class="item-card__image--img">
+                        <img src="{{ asset('storage/' . $order->item->image) }}" alt=""
+                            class="item-card__image--img">
                     </div>
                     <figcaption class="item-card__figcaption">
                         <h3 class="item-card__figcaption--title">{{ $order->item->name }}</h3>
                         <p class="item-card__figcaption--price">{{ $order->item->price }}</p>
-                        <p class="item-card__figcaption--status">{{ $order->status }}</p>
+                        <p class="item-card__figcaption--status">{{ $order->status_label }}</p>
                     </figcaption>
                 </figure>
             </div>

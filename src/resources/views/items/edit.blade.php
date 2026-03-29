@@ -8,7 +8,7 @@
         <div class="item__section">
             <div class="section__title">
                 <h3>商品編集</h3>
-                <a href="{{ route('items.mypage') }}" class="section__button-back">
+                <a href="{{ route('mypage') }}" class="section__button-back">
                     ← マイページに戻る
                 </a>
             </div>

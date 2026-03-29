@@ -28,13 +28,16 @@
                     <label for="password" class="login-form__label--item">パスワード</label>
                 </div>
                 <div class="login-form__group-content">
-                    <input type="password" id="password" name="password"
-                        class="login-form__input--text" placeholder="例: coachtech1106">
+                    <input type="password" id="password" name="password" class="login-form__input--text"
+                        placeholder="例: coachtech1106">
                 </div>
                 <div class="login-form__error">
                     @error('password')
                         {{ $message }}
                     @enderror
+                </div>
+                <div class="login-form__forgot-password">
+                    <a href="{{ route('password.request') }}" class="login-form__forgot-password-button">パスワードをお忘れですか？</a>
                 </div>
             </div>
             <div class="login-form__button">

@@ -4,12 +4,12 @@
 @endsection
 @section('content')
 
-<div class="item__content">
+    <div class="item__content">
         <div class="item__section">
             <div class="section__title">
                 <h3>商品出品</h3>
-                <a href="{{ route('items.index') }}" class="section__button-back">
-                    ← 一覧に戻る
+                <a href="{{ route('mypage') }}" class="section__button-back">
+                    ← マイページに戻る
                 </a>
             </div>
         </div>
@@ -18,37 +18,58 @@
             <div class="add-form__content">
                 <div class="add-form__item">
                     <label for="name" class="add-form__label">商品名</label>
-                    <input type="text" id="name" name="name" value="{{ old('name') }} "class="add-form__input">
+                    <input type="text" id="name" name="name" value="{{ old('name') }}"class="add-form__input">
+                    @error('name')
+                        <p class="add-form__error">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="add-form__item">
                     <label for="price" class="add-form__label">金額</label>
                     <input type="text" id="price" name="price" value="{{ old('price') }} "class="add-form__input">
+                    @error('price')
+                        <p class="add-form__error">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="add-form__item">
                     <label for="category" class="add-form__label">カテゴリー</label>
                     <select name="category_id" class="add-form__select" id="category">
                         <option value="">選択してください</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}"{{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            <option value="{{ $category->id }}"{{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}</option>
                         @endforeach
                     </select>
+                    @error('category_id')
+                        <p class="add-form__error">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="add-form__item">
                     <label for="condition" class="add-form__label">状態</label>
                     <select name="condition_id" class="add-form__select" id="condition">
                         <option value="">選択してください</option>
                         @foreach ($conditions as $condition)
-                            <option value="{{ $condition->id }}"{{ old('condition_id') == $condition->id ? 'selected' : '' }}>{{ $condition->name }}</option>
+                            <option
+                                value="{{ $condition->id }}"{{ old('condition_id') == $condition->id ? 'selected' : '' }}>
+                                {{ $condition->name }}</option>
                         @endforeach
                     </select>
+                    @error('condition_id')
+                        <p class="add-form__error">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="add-form__item">
                     <label for="description" class="add-form__label">説明文</label>
                     <textarea name="description" id="description" rows="5" class="add-form__textarea">{{ old('description') }}</textarea>
+                    @error('description')
+                        <p class="add-form__error">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="add-form__item">
                     <label for="image" class="add-form__label">画像</label>
                     <input type="file" name="image" id="image">
+                    @error('image')
+                        <p class="add-form__error">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
             <div class="add-form__button">

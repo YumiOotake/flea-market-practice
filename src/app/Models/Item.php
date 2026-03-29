@@ -21,6 +21,7 @@ class Item extends Model
     ];
 
     protected $casts = [
+        'seller_id' => 'integer',
         'price' => 'integer',
         'status' => 'integer',
     ];

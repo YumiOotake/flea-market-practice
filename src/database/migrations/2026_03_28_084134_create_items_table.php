@@ -22,7 +22,7 @@ class CreateItemsTable extends Migration
             $table->text('description')->nullable();
             $table->string('image');
             $table->integer('price');
-            $table->unsignedTinyInteger('status');
+            $table->unsignedTinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

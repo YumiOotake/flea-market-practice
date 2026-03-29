@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\MypageController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
+
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +19,49 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//「 / にアクセスしたら誰でもログインページに飛ばす」それとログアウト押した時もこのルート　ログインしてる → マイページへ　してない → ログイン画面へ
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check()) {
+        return redirect()->route('mypage');
+    }
+    return redirect()->route('login');
 });
+
+Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+
+//固定パスはワイルドカード（{item}）より必ず前に書く
+Route::get('/items/create', [ItemController::class, 'create'])
+    ->middleware(['auth', 'verified'])
+    ->name('items.create');
+
+Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Route::get('/mypage', function () {
+    //     return view('mypage');
+    // })->name('mypage');
+
+    Route::post('/items', [ItemController::class, 'store'])->name('items.store');
+    Route::get('/items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
+    Route::patch('/items/{item}', [ItemController::class, 'update'])->name('items.update');
+    Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
+
+    Route::get('/items/{item}/order', [OrderController::class, 'confirm'])->name('orders.confirm');
+    Route::post('/items/{item}/order', [OrderController::class, 'store'])->name('orders.store');
+
+    Route::get('/mypage', [MypageController::class, 'index'])->name('mypage');
+});
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/mypage');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back();
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');

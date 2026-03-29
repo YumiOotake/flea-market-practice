@@ -7,7 +7,7 @@
         <div class="register-form__heading">
             <h2 class="heading-ttl register-form__heading-ttl">Register</h2>
         </div>
-        <form action="{{ route('register') }}" method="POST" class="register-form">
+        <form action="{{ route('register') }}" method="POST" class="register-form" enctype="multipart/form-data">
             @csrf
             <div class="register-form__group">
                 <div class="register-form__group-title">
@@ -27,7 +27,7 @@
                 <div class="register-form__group-title">
                     <label for="email" class="register-form__label--item">メールアドレス</label>
                 </div>
-                <div class="form__group-content">
+                <div class="register-form__group-content">
                     <input type="text" id="email" name="email" value="{{ old('email') }}"
                         class="register-form__input--text" placeholder="例: test@example.com">
                 </div>
@@ -42,8 +42,8 @@
                     <label for="password" class="register-form__label--item">パスワード</label>
                 </div>
                 <div class="register-form__group-content">
-                    <input type="password" id="password" name="password" value="{{ old('password') }}"
-                        class="register-form__input--text" placeholder="例: coachtech1106">
+                    <input type="password" id="password" name="password" class="register-form__input--text"
+                        placeholder="例: coachtech1106">
                 </div>
                 <div class="register-form__error">
                     @error('password')
@@ -51,7 +51,19 @@
                     @enderror
                 </div>
             </div>
-
+            <div class="register-form__group">
+                <div class="register-form__group-title">
+                    <label for="confirm-password" class="register-form__label--item">確認用パスワード</label>
+                </div>
+                <div class="register-form__group-content">
+                    <input type="password" name="password_confirmation" id="confirm-password"
+                        class="register-form__input--text" />
+                </div>
+            </div>
+            <div class="register-form__group">
+                <label for="image" class="register-form__label--item">画像を登録しますか</label>
+                <input type="file" name="image" id="image">
+            </div>
             <div class="register-form__button">
                 <button class="register-form__button-submit" type="submit">登録</button>
             </div>

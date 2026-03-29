@@ -15,11 +15,11 @@ class ConditionsTableSeeder extends Seeder
     public function run()
     {
         Condition::insert([
-            ['name' => '新品'],
-            ['name' => '非常に良好'],
-            ['name' => '良好'],
-            ['name' => '普通'],
-            ['name' => '傷・汚れあり'],
+            ['name' => '新品', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => '非常に良好', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => '良好', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => '普通', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => '傷・汚れあり', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }
