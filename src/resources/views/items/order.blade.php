@@ -28,7 +28,7 @@
 
         <div class="order-confirm__button">
             {{-- 購入確定はPOSTで --}}
-            <form action="{{ route('orders.store', $item) }}" method="POST">
+            <form action="{{ route('orders.checkout', $item) }}" method="POST">
                 @csrf
                 <button type="submit" class="order-confirm__button--submit">購入を確定する</button>
             </form>

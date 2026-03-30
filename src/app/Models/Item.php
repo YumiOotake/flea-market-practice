@@ -49,4 +49,28 @@ class Item extends Model
             default => '販売中'
         };
     }
+
+    public function scopeCategorySearch($query, $category_id)
+    {
+        if (!empty($category_id)) {
+            $query->where('category_id', $category_id);
+        }
+        return $query;
+    }
+
+    public function scopeStatusSearch($query, $status)
+    {
+        if (!empty($status)) {
+            $query->where('status', $status);
+        }
+        return $query;
+    }
+
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+            $query->where('name', 'like', '%' . $keyword . '%');
+        }
+        return $query;
+    }
 }

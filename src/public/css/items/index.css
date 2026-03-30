@@ -1,0 +1,313 @@
+/* =====================
+   Index Page
+   ===================== */
+
+.item__content {
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---- heading row ---- */
+.item__heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* =====================
+   Search Form
+   ===================== */
+.search-form {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-sm);
+}
+
+.search-form__content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-form__item {
+    flex: 1 1 180px;
+}
+
+.search-form__item-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg);
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    appearance: none;
+}
+
+.search-form__item-input:focus {
+    border-color: var(--color-text-primary);
+    box-shadow: 0 0 0 3px rgba(26, 24, 20, 0.06);
+}
+
+.search-form__item-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.search-form__button {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.search-form__button--submit {
+    padding: 10px 24px;
+    background-color: var(--color-text-primary);
+    color: var(--color-surface);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: opacity var(--transition);
+}
+
+.search-form__button--submit:hover {
+    opacity: 0.75;
+}
+
+.search-form__button--reset {
+    padding: 10px 20px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    transition: all var(--transition);
+}
+
+.search-form__button--reset:hover {
+    background-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+/* =====================
+   Pagination
+   ===================== */
+.admin-content__nav {
+    margin: 16px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.paginate-nav {
+    display: inline-block;
+}
+
+.paginate-inner {
+    display: inline-flex;
+    align-items: center;
+    /* gap: 4px; */
+}
+
+.paginate-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid #d0d0d0;
+    /* border-radius: 6px; */
+    color: #8B7969;
+    text-decoration: none;
+    font-size: 14px;
+    background: #FFFFFF;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.paginate-btn:hover {
+    background: #D9C6B5;
+    border-color: #E3DED9;
+}
+
+.paginate-btn--active {
+    background: #8B7969;
+    color: #FFFFFF;
+    border-color: #E3DED9;
+    cursor: default;
+}
+
+.paginate-btn--disabled {
+    color: #bbb;
+    border-color: #e8e8e8;
+    background: #fafafa;
+    cursor: default;
+}
+
+.paginate-btn--dots {
+    border: none;
+    background: none;
+    color: #aaa;
+    cursor: default;
+    min-width: 24px;
+}
+
+/* =====================
+   Item Grid
+   ===================== */
+.item-card {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    align-items: center;
+    gap: 20px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.item-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.item-card__figure {
+    display: contents;
+    margin: 0;
+}
+
+.item-card__image {
+    width: 120px;
+    height: 100px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: var(--color-bg);
+}
+
+.item-card__image--img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.item-card:hover .item-card__image--img {
+    transform: scale(1.04);
+}
+
+.item-card__figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.item-card__figcaption--title {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.item-card__figcaption--price {
+    font-size: 18px;
+    color: var(--color-accent);
+    letter-spacing: 0.02em;
+    margin: 0;
+}
+
+.item-card__figcaption--price::before {
+    content: '¥';
+    font-size: 13px;
+    margin-right: 2px;
+}
+
+.item-card__figcaption--status {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.item-card__link {
+    flex-shrink: 0;
+}
+
+.item-card__link-button {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    transition: all var(--transition);
+}
+
+.item-card__link-button:hover {
+    background-color: var(--color-text-primary);
+    color: var(--color-surface);
+    border-color: var(--color-text-primary);
+}
+
+/* =====================
+   Empty State
+   ===================== */
+.item__empty {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--color-text-muted);
+    font-size: 15px;
+    letter-spacing: 0.04em;
+}
+
+/* =====================
+   Responsive
+   ===================== */
+@media (max-width: 600px) {
+    .item-card {
+        grid-template-columns: 90px 1fr;
+        grid-template-rows: auto auto;
+    }
+
+    .item-card__link {
+        grid-column: 1 / -1;
+    }
+
+    .item-card__link-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .search-form__content {
+        flex-direction: column;
+    }
+
+    .search-form__item {
+        width: 100%;
+    }
+}

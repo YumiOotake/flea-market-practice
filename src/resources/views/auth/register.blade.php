@@ -1,71 +1,75 @@
 @extends('layouts.app')
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/auth/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/auth/auth-common.css') }}">
 @endsection
 @section('content')
-    <div class="register-form__content">
-        <div class="register-form__heading">
-            <h2 class="heading-ttl register-form__heading-ttl">Register</h2>
+    <div class="auth-form__content">
+        <div class="auth-form__heading">
+            <h2 class="auth-form__heading-ttl">Register</h2>
         </div>
-        <form action="{{ route('register') }}" method="POST" class="register-form" enctype="multipart/form-data">
+        <form action="{{ route('register') }}" method="POST" class="auth-form" enctype="multipart/form-data">
             @csrf
-            <div class="register-form__group">
-                <div class="register-form__group-title">
-                    <label for="name" class="register-form__label--item">お名前</label>
+            <div class="auth-form__group">
+                <div class="auth-form__group-title">
+                    <label for="name" class="auth-form__label">お名前</label>
                 </div>
-                <div class="register-form__group-content">
+                <div class="auth-form__group-content">
                     <input type="text" id="name" name="name" value="{{ old('name') }}"
-                        class="register-form__input--text" placeholder="例: 山田 太郎">
+                        class="auth-form__input" placeholder="例: 山田 太郎">
                 </div>
-                <div class="register-form__error">
+                <div class="auth-form__error">
                     @error('name')
                         {{ $message }}
                     @enderror
                 </div>
             </div>
-            <div class="register-form__group">
-                <div class="register-form__group-title">
-                    <label for="email" class="register-form__label--item">メールアドレス</label>
+            <div class="auth-form__group">
+                <div class="auth-form__group-title">
+                    <label for="email" class="auth-form__label">メールアドレス</label>
                 </div>
-                <div class="register-form__group-content">
+                <div class="auth-form__group-content">
                     <input type="text" id="email" name="email" value="{{ old('email') }}"
-                        class="register-form__input--text" placeholder="例: test@example.com">
+                        class="auth-form__input" placeholder="例: test@example.com">
                 </div>
-                <div class="register-form__error">
+                <div class="auth-form__error">
                     @error('email')
                         {{ $message }}
                     @enderror
                 </div>
             </div>
-            <div class="register-form__group">
-                <div class="register-form__group-title">
-                    <label for="password" class="register-form__label--item">パスワード</label>
+            <div class="auth-form__group">
+                <div class="auth-form__group-title">
+                    <label for="password" class="auth-form__label">パスワード</label>
                 </div>
-                <div class="register-form__group-content">
-                    <input type="password" id="password" name="password" class="register-form__input--text"
-                        placeholder="例: coachtech1106">
+                <div class="auth-form__group-content">
+                    <input type="password" id="password" name="password"
+                        class="auth-form__input" placeholder="例: coachtech1106">
                 </div>
-                <div class="register-form__error">
+                <div class="auth-form__error">
                     @error('password')
                         {{ $message }}
                     @enderror
                 </div>
             </div>
-            <div class="register-form__group">
-                <div class="register-form__group-title">
-                    <label for="confirm-password" class="register-form__label--item">確認用パスワード</label>
+            <div class="auth-form__group">
+                <div class="auth-form__group-title">
+                    <label for="confirm-password" class="auth-form__label">確認用パスワード</label>
                 </div>
-                <div class="register-form__group-content">
+                <div class="auth-form__group-content">
                     <input type="password" name="password_confirmation" id="confirm-password"
-                        class="register-form__input--text" />
+                        class="auth-form__input">
                 </div>
             </div>
-            <div class="register-form__group">
-                <label for="image" class="register-form__label--item">画像を登録しますか</label>
-                <input type="file" name="image" id="image">
+            <div class="auth-form__group">
+                <div class="auth-form__group-title">
+                    <label for="image" class="auth-form__label">プロフィール画像</label>
+                </div>
+                <div class="auth-form__group-content">
+                    <input type="file" name="image" id="image" class="auth-form__file">
+                </div>
             </div>
-            <div class="register-form__button">
-                <button class="register-form__button-submit" type="submit">登録</button>
+            <div class="auth-form__button">
+                <button class="auth-form__button-submit" type="submit">登録</button>
             </div>
         </form>
     </div>

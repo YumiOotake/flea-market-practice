@@ -14,8 +14,10 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::all();
-        return view('items.index', compact('items'));
+        $items = Item::with('category', 'condition')->paginate(5);
+        $categories = Category::all();
+
+        return view('items.index', compact('items', 'categories'));
     }
 
     public function show(Item $item)
@@ -101,11 +103,24 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $this->authorize('delete', $item);
-        
+
         Storage::disk('public')->delete($item->image);
 
         $item->delete();
 
         return redirect()->route('mypage')->with('success', '商品を取り消しました');
+    }
+
+    public function search(Request $request)
+    {
+        $items = Item::with('category', 'condition')
+            ->keywordSearch($request->keyword)
+            ->categorySearch($request->category_id)
+            ->statusSearch($request->status)
+            ->paginate(5);
+
+        $categories = Category::all();
+
+        return view('items.index', compact('items', 'categories'));
     }
 }

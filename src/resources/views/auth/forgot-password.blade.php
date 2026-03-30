@@ -1,31 +1,30 @@
 @extends('layouts.app')
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/auth/forgot.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/auth/auth-common.css') }}">
 @endsection
 @section('content')
-    <div class="password-form__content">
-        <div class="password-form__heading">
-            <h2 class="password-form__heading-ttl">パスワードお忘れの方</h2>
+    <div class="auth-form__content">
+        <div class="auth-form__heading">
+            <h2 class="auth-form__heading-ttl">パスワードをお忘れの方</h2>
         </div>
-        <form method="POST" action="{{ route('password.email') }}" class="form">
+        <form method="POST" action="{{ route('password.email') }}" class="auth-form">
             @csrf
-            <div class="form__group">
-                <div class="form__group-title">
-                    <span class="form__label-item">メールアドレス</span>
+            <div class="auth-form__group">
+                <div class="auth-form__group-title">
+                    <label for="email" class="auth-form__label">メールアドレス</label>
                 </div>
-                <div class="form__group-content">
-                    <div class="form__input-text">
-                        <input type="email" name="email" class="form__input">
-                    </div>
-                    <div class="form__error">
-                        @error('email')
-                            {{ $message }}
-                        @enderror
-                    </div>
+                <div class="auth-form__group-content">
+                    <input type="email" id="email" name="email"
+                        class="auth-form__input" placeholder="例: test@example.com">
+                </div>
+                <div class="auth-form__error">
+                    @error('email')
+                        {{ $message }}
+                    @enderror
                 </div>
             </div>
-            <div class="form__button">
-                <button type="submit" class="form__button-submit">送信</button>
+            <div class="auth-form__button">
+                <button type="submit" class="auth-form__button-submit">送信</button>
             </div>
         </form>
     </div>

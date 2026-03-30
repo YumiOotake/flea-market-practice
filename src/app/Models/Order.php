@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Review;
 
 class Order extends Model
 {
@@ -39,6 +40,11 @@ class Order extends Model
     public function seller()
     {
         return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    public function review()
+    {
+        return $this->hasOne(Review::class);
     }
 
     public function getStatusLabelAttribute(): string

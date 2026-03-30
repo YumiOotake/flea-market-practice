@@ -3,6 +3,7 @@
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -28,6 +29,7 @@ Route::get('/', function () {
 });
 
 Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+Route::get('/items/search', [ItemController::class, 'search'])->name('items.search');
 
 //固定パスはワイルドカード（{item}）より必ず前に書く
 Route::get('/items/create', [ItemController::class, 'create'])
@@ -49,18 +51,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/items/{item}/order', [OrderController::class, 'confirm'])->name('orders.confirm');
     Route::post('/items/{item}/order', [OrderController::class, 'store'])->name('orders.store');
 
+    Route::get('/reviews/{order}/create', [ReviewController::class, 'create'])->name(('reviews.create'));
+    Route::post('/reviews/{order}', [ReviewController::class, 'store'])->name(('reviews.store'));
+
+    // Stripe用に変更・追加
+    Route::post('/items/{item}/order', [OrderController::class, 'checkout'])->name('orders.checkout');
+    Route::get('/items/{item}/order/success', [OrderController::class, 'success'])->name('orders.success');
+    Route::get('/items/{item}/order/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+
     Route::get('/mypage', [MypageController::class, 'index'])->name('mypage');
 });
 
+//メールのURLクリックで表示//未認証の人がアクセスすると表示
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
+//認証済みにするemail_verified_at に日時入れる
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect('/mypage');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
+//認証メール再送
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back();
