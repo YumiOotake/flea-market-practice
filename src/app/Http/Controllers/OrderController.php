@@ -119,4 +119,30 @@ class OrderController extends Controller
         return redirect()->route('orders.confirm', $item)
             ->with('error', '決済がキャンセルされました');
     }
+
+    public function send(Order $order)
+    {
+        if ($order->seller_id !== auth()->id() && $order->status === 1) {
+            return redirect()->route('mypage')->with('error', '出品したユーザーのみこの処理ができます');
+        }
+
+        $order->update([
+            'status' => 2,
+        ]);
+
+        return redirect()->route('mypage')->with('success', '商品を発送済みに変更しました');
+    }
+
+    public function receive(Order $order)
+    {
+        if ($order->buyer_id !== auth()->id() && $order->status === 2) {
+            return redirect()->route('mypage')->with('error', '購入したユーザーのみこの処理ができます');
+        }
+
+        $order->update([
+            'status' => 3,
+        ]);
+
+        return redirect()->route('mypage')->with('success', '商品を受取済みに変更しました');
+    }
 }

@@ -31,6 +31,41 @@
             <a href="{{ route('items.create') }}" class="item__create--link">出品する</a>
         </div>
 
+        <div class="order-list__header">
+            <h3 class="order-list__title">売れた商品一覧</h3>
+        </div>
+
+        @forelse ($soldOrders as $order)
+            <div class="item-card">
+                <figure class="item-card__figure">
+                    <div class="item-card__image">
+                        <img src="{{ asset('storage/' . $order->item->image) }}" alt=""
+                            class="item-card__image--img">
+                    </div>
+                    <figcaption class="item-card__figcaption">
+                        <h3 class="item-card__figcaption--title">{{ $order->item->name }}</h3>
+                        <p class="item-card__figcaption--price">{{ $order->item->price }}</p>
+                        <p class="item-card__figcaption--status">{{ $order->item->condition->name }}</p>
+                        <p class="item-card__figcaption--status">{{ $order->status_label }}</p>
+                    </figcaption>
+                </figure>
+                <div class="item-card__button">
+                    @if ($order->seller_id === auth()->id() && $order->status === 1)
+                        <form action="{{ route('orders.send', $order) }}" method="post">
+                            @csrf
+                            @method('PATCH')
+                            <button class="item-card__button--send">発送済みにする</button>
+                        </form>
+                    @else
+                    @endif
+                </div>
+            </div>
+        @empty
+            <p>売れた商品はありません</p>
+        @endforelse
+
+
+
         {{-- @if (Auth::id() == $item->seller_id) --}}
         <div class="order-list__header">
             <h3 class="order-list__title">出品一覧</h3>
@@ -87,12 +122,25 @@
                         <p class="item-card__figcaption--status">{{ $order->status_label }}</p>
                     </figcaption>
                 </figure>
-                <div class="item-card__review">
-                    @if ($order->review)
-                        <span class="item-card__review-done">レビュー済み ⭐️{{ $order->review->rating }}</span>
+                <div class="item-card__button">
+                    @if ($order->buyer_id === auth()->id() && $order->status === 2)
+                        <form action="{{ route('orders.receive', $order) }}" method="post">
+                            @csrf
+                            @method('PATCH')
+                            <button class="item-card__button--receive">受取完了にする</button>
+                        </form>
                     @else
-                        <a href="{{ route('reviews.create', $order) }}" class="item-card__review-button">レビューを書く</a>
                     @endif
+                </div>
+                <div class="item-card__review">
+                    @if ($order->status === 3)
+                        @if ($order->review)
+                            <span class="item-card__review-done">レビュー済み ⭐️{{ $order->review->rating }}</span>
+                        @else
+                            <a href="{{ route('reviews.create', $order) }}" class="item-card__review-button">レビューを書く</a>
+                        @endif
+                    @endif
+
                 </div>
             </div>
         @empty

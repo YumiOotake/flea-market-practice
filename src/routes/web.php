@@ -60,6 +60,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/items/{item}/order/success', [OrderController::class, 'success'])->name('orders.success');
     Route::get('/items/{item}/order/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
 
+    Route::patch('/order/{order}/send', [OrderController::class, 'send'])->name('orders.send');
+    Route::patch('/order/{order}/receive', [OrderController::class, 'receive'])->name('orders.receive');
+
     Route::get('/mypage', [MypageController::class, 'index'])->name('mypage');
     Route::post('items/{item}/favorite', [FavoriteController::class, 'store'])->name('favorites.store');
     Route::delete('items/{item}/favorite', [FavoriteController::class, 'destroy'])->name('favorites.destroy');

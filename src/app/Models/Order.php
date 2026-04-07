@@ -52,7 +52,7 @@ class Order extends Model
         return match ($this->status) {
             1 => '購入済み',
             2 => '発送済み',
-            3 => '受け取り完了',
+            3 => '受取完了',
             default => '購入済み',
         };
     }

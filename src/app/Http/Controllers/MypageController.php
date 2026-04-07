@@ -23,9 +23,10 @@ class MypageController extends Controller
 
         //Itemの seller_id = ログインユーザーのid のものだけ取得してる Userモデルに記載必要
         $items = $user->items()->with('condition')->get();
-        $orders = $user->orders()->with('item')->get();
+        $orders = $user->orders()->with('item', 'review')->get();
         $favorites = $user->favorites()->with('condition')->get();
+        $soldOrders = $user->soldOrders()->with('item.condition')->get();
 
-        return view('mypage', compact('user', 'items', 'orders', 'favorites'));
+        return view('mypage', compact('user', 'items', 'orders', 'favorites', 'soldOrders'));
     }
 }
