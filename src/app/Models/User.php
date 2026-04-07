@@ -56,6 +56,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Order::class, 'buyer_id');
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(Item::class, 'favorites');
+        //このuserがお気に入り登録した商品一覧
+        //user N:１ favorite （user N:N itemだから中間を入れる）
+    }
+
     // 必要になったら追加、必要になる場面は「自分が売った注文一覧」を表示したいとき
     // public function soldOrders()
     // {

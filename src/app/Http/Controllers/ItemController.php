@@ -14,7 +14,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::with('category', 'condition')->paginate(5);
+        $items = Item::with('category', 'condition', 'favoritedBy')->paginate(5);
         $categories = Category::all();
 
         return view('items.index', compact('items', 'categories'));
@@ -113,7 +113,7 @@ class ItemController extends Controller
 
     public function search(Request $request)
     {
-        $items = Item::with('category', 'condition')
+        $items = Item::with('category', 'condition', 'favoritedBy')
             ->keywordSearch($request->keyword)
             ->categorySearch($request->category_id)
             ->statusSearch($request->status)

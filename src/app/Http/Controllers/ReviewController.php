@@ -10,7 +10,7 @@ class ReviewController extends Controller
 {
     public function create(Order $order)
     {
-        return view('review-create', compact('order'));
+        return view('items.review-create', compact('order'));
     }
 
     public function store(Request $request, Order $order)

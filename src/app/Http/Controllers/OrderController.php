@@ -77,6 +77,7 @@ class OrderController extends Controller
 
         // Stripeの決済画面へリダイレクト
         return redirect($session->url);
+        //Stripeに注文書を渡す
     }
 
     // 決済成功後

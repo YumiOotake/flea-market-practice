@@ -66,6 +66,18 @@
                 <div class="item-card__link">
                     <a href="{{ route('items.show', $item) }}" class="item-card__link-button">商品詳細</a>
                 </div>
+                <div class="item-card__favorite">
+                    @auth
+                        @if ($item->favoritedBy->contains(auth()->id()))
+                            <p class="item-card__favorite-heart item-card__favorite--active">♥</p>
+                        @else
+                            <p class="item-card__favorite-heart">♡</p>
+                        @endif
+                    @else
+                    @endauth
+                    <p class="item-card__favorite-text">お気に入り数</p>
+                    <span class="item-card__favorite-count">{{ $item->favoritedBy->count() }}</span>
+                </div>
             </div>
         @empty
             <p class="item__empty">商品が見つかりませんでした</p>

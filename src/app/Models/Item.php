@@ -41,6 +41,18 @@ class Item extends Model
         return $this->belongsTo(Condition::class);
     }
 
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favorites');
+        // この商品をお気に入りしたuser一覧
+        //item N：N userだから　item １:N favorite 中間テーブルを挟んで
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'seller_id');
+    }
+
     public function getStatusLabelAttribute(): string
     {
         return match ($this->status) {

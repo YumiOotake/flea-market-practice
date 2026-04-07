@@ -99,5 +99,28 @@
             <p>購入履歴はありません</p>
         @endforelse
 
+        <div class="favorite-list__header">
+            <h3 class="favorite-list__title">お気に入り商品</h3>
+        </div>
+        @forelse ($favorites as $item)
+            <div class="item-card">
+                <figure class="item-card__figure">
+                    <div class="item-card__image">
+                        <img src="{{ asset('storage/' . $item->image) }}" alt="" class="item-card__image--img">
+                    </div>
+                    <figcaption class="item-card__figcaption">
+                        <h3 class="item-card__figcaption--title">{{ $item->name }}</h3>
+                        <p class="item-card__figcaption--price">{{ $item->price }}</p>
+                        <p class="item-card__figcaption--status">{{ $item->status_label }}</p>
+                        <p class="item-card__figcaption--status">{{ $item->condition->name }}</p>
+                    </figcaption>
+                </figure>
+                <div class="item-card__link">
+                    <a href="{{ route('items.show', $item) }}" class="item-card__link-button">商品詳細</a>
+                </div>
+            </div>
+        @empty
+            <p>お気に入り商品はありません</p>
+        @endforelse
     </div>
 @endsection

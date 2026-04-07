@@ -49,13 +49,19 @@
                 <a href="{{ route('orders.confirm', $item) }}" class="item-detail__button--edit">
                     購入する
                 </a>
-            @else
-                <a href="{{ route('login') }}">ログインして購入する</a>
+                @if ($item->favoritedBy->contains(auth()->id()))
+                    <form action="{{ route('favorites.destroy', $item) }}" method="POST" class="item-detail__form">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="item-detail__remove-favorite">お気に入り解除</button>
+                    </form>
+                @else
+                    <form action="{{ route('favorites.store', $item) }}" method="POST" class="item-detail__form">
+                        @csrf
+                        <button type="submit" class="item-detail__add-favorite">お気に入り登録</button>
+                    </form>
+                @endif
+                <a href="{{ route('login') }}" class="item-detail__button--login">ログインして購入する</a>
             @endauth
-
-
-
         </div>
-
-    </div>
-@endsection
+        @endsection

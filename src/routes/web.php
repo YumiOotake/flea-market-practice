@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\OrderController;
@@ -60,6 +61,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/items/{item}/order/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
 
     Route::get('/mypage', [MypageController::class, 'index'])->name('mypage');
+    Route::post('items/{item}/favorite', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('items/{item}/favorite', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+
 });
 
 //メールのURLクリックで表示//未認証の人がアクセスすると表示
