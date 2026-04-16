@@ -26,7 +26,8 @@ class MypageController extends Controller
         $orders = $user->orders()->with('item', 'review')->get();
         $favorites = $user->favorites()->with('condition')->get();
         $soldOrders = $user->soldOrders()->with('item.condition')->get();
-
-        return view('mypage', compact('user', 'items', 'orders', 'favorites', 'soldOrders'));
+        $notifications = $user->notifications()->latest()->get();
+        // dd($notifications);
+        return view('mypage', compact('user', 'items', 'orders', 'favorites', 'soldOrders', 'notifications'));
     }
 }

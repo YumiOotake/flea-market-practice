@@ -15,8 +15,7 @@
         <form class="search-form" action="{{ route('items.search') }}" method="get">
             <div class="search-form__content">
                 <div class="search-form__item">
-                    <input type="text" name="keyword" class="search-form__item-input" placeholder="商品名を入力してください "
-                        value="{{ request('keyword') }}">
+                    <input type="text" name="keyword" class="search-form__item-input" placeholder="商品名を入力してください " value="{{ request('keyword') }}">
                 </div>
                 <div class="search-form__item">
                     <select name="status" class="search-form__item-input">

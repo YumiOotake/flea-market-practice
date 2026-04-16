@@ -3,6 +3,7 @@
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MypageController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
@@ -67,6 +68,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('items/{item}/favorite', [FavoriteController::class, 'store'])->name('favorites.store');
     Route::delete('items/{item}/favorite', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 
+    Route::patch('notifications/{notification}/read', [NotificationController::class, 'read'])->name('notifications.read');
+    Route::patch('notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.read-all');
+//通知機能途中。購入→通知表示のみ実装済み。既読にする機能もまだ！
 });
 
 //メールのURLクリックで表示//未認証の人がアクセスすると表示

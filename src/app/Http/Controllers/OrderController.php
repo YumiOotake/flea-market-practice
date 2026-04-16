@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Notification;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
@@ -110,6 +111,13 @@ class OrderController extends Controller
 
         $item->update(['status' => 2]);
 
+        Notification::create([
+            'user_id' => $item->seller_id,
+            'type' => 'order_created',
+            'item_id' => $item->id,
+            'is_read' => false,
+        ]);
+
         return redirect()->route('mypage')->with('success', '購入が完了しました！');
     }
 
@@ -130,6 +138,13 @@ class OrderController extends Controller
             'status' => 2,
         ]);
 
+        Notification::create([
+            'user_id' => $order->buyer_id,
+            'type' => 'order_shipped',
+            'item_id' => $order->item_id,
+            'is_read' => false,
+        ]);
+
         return redirect()->route('mypage')->with('success', '商品を発送済みに変更しました');
     }
 
@@ -141,6 +156,13 @@ class OrderController extends Controller
 
         $order->update([
             'status' => 3,
+        ]);
+
+        Notification::create([
+            'user_id' => $order->seller_id,
+            'type' => 'order_received',
+            'item_id' => $order->item_id,
+            'is_read' => false,
         ]);
 
         return redirect()->route('mypage')->with('success', '商品を受取済みに変更しました');

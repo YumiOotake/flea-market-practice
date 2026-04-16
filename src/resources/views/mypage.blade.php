@@ -16,6 +16,24 @@
                 <img src="{{ asset('storage/' . $user->profile_image) }}" alt="" class="sidebar-profile__image">
                 <p class="sidebar-profile__email">{{ $user->email }}</p>
             </section>
+            <section class="sidebar-notification">
+                <div class="sidebar-notification__list">
+                    @forelse ($notifications as $notification)
+                        @if ($notification->is_read === 0)
+                            <div class="sidebar-notification__group">
+                                <p class="sidebar-notification__message">{{ $notification->message }}</p>
+                                <form action="{{ route('notifications.read', $notification )}}" method="POST" class="sidebar-notification__form">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="sidebar-notification__form-button">既読にする</button>
+                                </form>
+                            </div>
+                        @endif
+                    @empty
+                        <p>通知はありません</p>
+                    @endforelse
+                </div>
+            </section>
         </aside>
         @if (session('success'))
             <div class="alert alert-success">

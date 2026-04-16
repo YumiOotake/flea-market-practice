@@ -68,6 +68,11 @@ class User extends Authenticatable implements MustVerifyEmail
         //user N:１ favorite （user N:N itemだから中間を入れる）
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     // 必要になったら追加、必要になる場面は「自分が売った注文一覧」を表示したいとき
     // public function soldOrders()
     // {

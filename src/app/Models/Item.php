@@ -53,6 +53,11 @@ class Item extends Model
         return $this->belongsTo(User::class, 'seller_id');
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     public function getStatusLabelAttribute(): string
     {
         return match ($this->status) {
